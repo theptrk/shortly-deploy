@@ -26,6 +26,9 @@ app.get('/login', handler.loginUserForm);
 app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
 
+// ===== dev stage test =====
+app.get('/findusers', handler.findUsers);
+
 app.get('/signup', handler.signupUserForm);
 app.post('/signup', handler.signupUser);
 
