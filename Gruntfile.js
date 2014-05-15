@@ -2,7 +2,9 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    
     concat: {
+<<<<<<< HEAD
       dist: {
         src: [
             // 'app/*.js',
@@ -38,6 +40,74 @@ module.exports = function(grunt) {
       },
 
       jshint: {
+=======
+      options: {
+        //separator: ';',
+      },
+      dist: {
+        src: [
+          'public/client/app.js',
+          'public/client/link.js',
+          'public/client/links.js',
+          'public/client/linkView.js',
+          'public/client/linksView.js',
+          'public/client/createLinkView.js',
+          'public/client/router.js'
+        ],
+        dest: 'public/client/minified/built.js',
+      },
+    },
+
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/**/*.js']
+      }
+    },
+
+    nodemon: {
+      dev: {
+        script: 'server.js'
+      }
+    },
+
+    uglify: {
+      my_target: {
+        files: {
+          'public/minified/output.min.js': [
+            'public/minified/output.min.js',
+          ]
+        }
+      }
+    },
+
+    jshint: {
+      files: [ // we would usually have a client task and a server task
+        //'app/**/*.js', 
+        'public/client/**/*.js',
+      ],
+      options: {
+        force: 'true',
+        jshintrc: '.jshintrc',
+        ignores: [
+          'public/lib/**/*.js',
+          'public/dist/**/*.js'
+        ]
+      }
+    },
+
+    cssmin: {
+      minify: {
+        src: ['public/style.css'],
+        dest: 'public/style.min.css'
+      }
+    },
+
+    watch: {
+      scripts: {
+>>>>>>> master
         files: [
           'Gruntfile.js',
           'server-config.js',
@@ -57,6 +127,7 @@ module.exports = function(grunt) {
           ]
         }
       },
+<<<<<<< HEAD
 
       cssmin: {
         minify: {
@@ -94,6 +165,24 @@ module.exports = function(grunt) {
         }
       },
     });
+=======
+      css: {
+        files: 'public/*.css',
+        tasks: ['cssmin']
+      }
+    },
+
+    shell: {
+      multiple: {
+        command: [
+          'git push origin master',
+          'git push azure master'
+        ].join('&&')
+      }
+    },
+
+  });
+>>>>>>> master
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -117,6 +206,10 @@ module.exports = function(grunt) {
     grunt.task.run([ 'watch' ]);
   });
 
+  grunt.registerTask('server-prod', [
+    'shell:multiple'
+  ]);
+
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
@@ -129,21 +222,33 @@ module.exports = function(grunt) {
     'jshint',
     'concat',
     'uglify',
+<<<<<<< HEAD
     'cssmin'
+=======
+    'cssmin',
+    'mochaTest'
+>>>>>>> master
   ]);
 
-  grunt.registerTask('upload', function(n) {
+  grunt.registerTask('deploy', function(n) {
     if(grunt.option('prod')) {
+<<<<<<< HEAD
       grunt.task.run(['shell']);
+=======
+      grunt.task.run([ 'server-prod' ]);
+>>>>>>> master
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
+<<<<<<< HEAD
   grunt.registerTask('deploy', [
     'build',
     'upload'
   ]);
 
 
+=======
+>>>>>>> master
 };
