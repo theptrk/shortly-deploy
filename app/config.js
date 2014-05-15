@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-
-var db = mongoose.connect('mongodb://localhost/localshortly', function() {
-  console.log('connected to nago');
+var mongoUrl = process.env.MONGO_LABS_URL || 'mongodb://localhost/localshortly'
+var db = mongoose.connect(mongoUrl, function() {
+  console.log('connected to mango', mongoUrl);
 });
 
 
